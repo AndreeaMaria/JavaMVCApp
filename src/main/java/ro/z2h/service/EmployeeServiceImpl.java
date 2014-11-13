@@ -39,4 +39,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return oneEmployee;
     }
+
+    @Override
+    public void deleteOneEmployee(Long idEmployee) {
+        Connection connection = DatabaseManager.getConnection("ZTH_18", "passw0ord");
+        EmployeeDao deleteOneEmployee = new EmployeeDao();
+
+    }
 }
