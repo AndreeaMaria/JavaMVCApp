@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * DepartmentDao.java
  */
 public class DepartmentDao {
-    public ArrayList<Department> getAllDepartments(Connection con) throws SQLException {
+    public static ArrayList<Department> getAllDepartments(Connection con) throws SQLException {
              Statement stmt = con.createStatement();
              String selectAllFromTableString = "SELECT department_id,department_name FROM Departments";
              ResultSet rs = stmt.executeQuery(selectAllFromTableString);

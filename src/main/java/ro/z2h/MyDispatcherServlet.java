@@ -19,6 +19,8 @@ import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -73,17 +75,28 @@ public class MyDispatcherServlet extends HttpServlet{
 
 
     private Object dispatch(HttpServletRequest req, HttpServletResponse resp) {
-        String pathInfo = req.getPathInfo(); /*pathinfo e cheia*/
 
+        String pathInfo = req.getPathInfo(); /*pathinfo e cheia*/
+    req.getParameterMap();
         /*Mai usor decat cu if*/
         MethodAttributes methodAttributes = galeata.get(pathInfo);
         try {
             if(methodAttributes !=null){
             Class<?> appControllerClass = Class.forName(methodAttributes.getControllerClass());
             Object appControllerInstance = appControllerClass.newInstance();
-            Method controllerMethod = appControllerClass.getMethod(methodAttributes.getMethodName());
-            controllerMethod.invoke(appControllerInstance);
-                return controllerMethod.invoke(appControllerInstance);
+
+            Method controllerMethod = appControllerClass.getMethod(methodAttributes.getMethodName(), methodAttributes.getMethodParameterType());
+
+
+                Parameter[] realParameters =  controllerMethod.getParameters();
+                ArrayList<String> realParam = new ArrayList<String>();
+                for (Parameter realParameter : realParameters ){
+                    String parameter= req.getParameter((realParameter.getName()) );
+                    realParam.add(parameter);
+                }
+                Object response = controllerMethod.invoke(appControllerInstance,(String[])realParam.toArray(new String[0]));
+                return response;
+
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -133,7 +146,9 @@ public class MyDispatcherServlet extends HttpServlet{
                            obj.setMethodType(methodAnnotation.methodType());
                            System.out.println(methodAnnotation.urlPath() + " " + methodAnnotation.methodType());
                            String key = ctrlAnnotation.urlPath() + methodAnnotation.urlPath();
+                           obj.setMethodParameterType(method.getParameterTypes());
                            galeata.put(key, obj);
+
 
                        }
                     }

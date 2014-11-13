@@ -34,10 +34,9 @@ public class EmployeeController {
     }
 
     @MyRequestMethod(urlPath = "/one")
-    public Employee getOneEmployee(){
-        Employee employee = new Employee();
+    public Employee getOneEmployee(String id){
      EmployeeServiceImpl objEmployeeOne = new EmployeeServiceImpl();
-     objEmployeeOne.findOneEmployee(100l);
-        return objEmployeeOne.findOneEmployee(100l);
+     return objEmployeeOne.findOneEmployee(Long.valueOf(id));
+
     }
 }
