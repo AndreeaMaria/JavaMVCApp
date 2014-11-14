@@ -12,7 +12,7 @@ public interface EmployeeService {
 
     Employee findOneEmployee(Long idEmployee);
 
-    public void deleteOneEmployee(Long idEmployee);
+     void deleteOneEmployee(Long Id);
 
 
 

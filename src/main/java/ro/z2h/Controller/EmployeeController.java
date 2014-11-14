@@ -15,6 +15,9 @@ import java.util.List;
 @MyController(urlPath = "/employee")
 
 public class EmployeeController {
+
+    EmployeeServiceImpl objEmployee = new EmployeeServiceImpl();
+
     @MyRequestMethod(urlPath = "/all")
    public List<Employee> getAllEmployees(){
 
@@ -38,7 +41,13 @@ public class EmployeeController {
      EmployeeServiceImpl objEmployeeOne = new EmployeeServiceImpl();
      return objEmployeeOne.findOneEmployee(Long.valueOf(id));
 
+
+        }
+    @MyRequestMethod(urlPath = "/delete")
+    public void deleteOneEmployee(String id) {
+        objEmployee.deleteOneEmployee(Long.valueOf(id)); }
+
     }
 
 
-}
+

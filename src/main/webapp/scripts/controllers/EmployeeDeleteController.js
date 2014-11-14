@@ -13,13 +13,13 @@ hrApp.controller('EmployeeDeleteController', ['$scope', '$http', '$routeParams',
             $scope.jobs = data;
         });
 
-    $http({url: 'http://localhost:8282/datamodel/employees/findOne/'+$routeParams.employeeid, method: 'GET'}).
+    $http({url: 'http://localhost:8080/app/mvc/employee/one?id='+$routeParams.employeeid, method: 'GET'}).
         success(function (data) {
             $scope.employee = data;
         });
 
     $scope.deleteEmployee = function() {
-        $http({url: 'http://localhost:8282/datamodel/employees/delete/'+$routeParams.employeeid, method: 'DELETE'}).
+        $http({url: 'http://localhost:8080/app/#/employeedelete/one?id'+$routeParams.employeeid, method: 'DELETE'}).
             success(function (data) {
                 $location.url('/employeeslist');
             });
